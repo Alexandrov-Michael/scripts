@@ -2,7 +2,7 @@
 # Backup scripst for mysql bases
 
 mountpoint="//backup-srv/share/webserverlinux"
-bases=('mantis' 'mantisDB' 'mediawiki')
+bases=('mantis' 'mediawiki')
 
 mountdir="/mnt/mysql"
 testmount=$(mount | grep $mountpoint)
