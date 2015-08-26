@@ -13,8 +13,9 @@ if [ -n "$testmount" ]
 then
 	for b in ${bases[@]}
 	do
-		/usr/bin/pg_dump -U postgres $b | gzip1 > /mnt/psql/$b.$datetime.pgsql.gz || logger "zabbix:PROBLEM $0 PSQL backup cancel"
-		ls -1r $mountdir | grep $b | sed -n '10,$ p' | xargs rm -f {} || logger "zabbix:PROBLEM $0 Rotate cancel"
+		/usr/bin/pg_dump -U postgres $b | gzip > /mnt/psql/$b.$datetime.pgsql.gz || logger "zabbix:PROBLEM $0 PSQL backup cancel"
+#		ls -1r $mountdir | grep $b | sed -n '10,$ p' | xargs rm -f {} || logger "zabbix:PROBLEM $0 Rotate cancel"
+		find $mountdir -name "$b*" | sort -r | sed -n '10,$ p' | xargs rm || logger "zabbix:PROBLEM $0 Rotate cancel"
 	done
 else
 	logger "zabbix:PROBLEM $0 Folder PSQL not mounted" 
