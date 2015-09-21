@@ -1,5 +1,5 @@
 #!/bin/bash
-#Backup files intremental
+#Backup PROJECTS on backup-srv2 in pa (files intremental)
 
 dirs="/mnt/Projects"
 dird="/data/Projects/latest"
