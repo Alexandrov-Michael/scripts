@@ -17,15 +17,8 @@ if [ -n "$testmount1" ]
 then
 	if [ -n "$testmount2" ]
 	then   
-	        rsync --archive --delete --delete-excluded $dirs $dird &> $logfile
+	        rsync --archive --delete --delete-excluded --exclude="*.lck" $dirs $dird &> $logfile || logger "PROBLEM: $PROGNAME backup projects stoped whith rsync errors" && exit 1
        		cp --archive --link $dird $dirdate || logger "PROBLEM: $PROGNAME cp aborted" && exit 1
-		rsynclog="$(cat $logfile)"
-		# провера лога rsync на ошибки
-		if [ -n "$rsynclog" ]
-		then
-			logger "PROBLEM: $PROGNAME backup projects stoped whith rsync errors"
-			exit 1
-		fi
 		logger "INFO: $PROGNAME Backup Projects is complite"
 	else   
         	logger "PROBLEM: $PROGNAME $mountpoint2 not mounting"
