@@ -26,7 +26,7 @@ then
 	        rsync --archive --delete --delete-excluded --exclude="*.lck" $dirs $dird &> $logfile || flg "PROBLEM: $PROGNAME backup projects aborted with rsync error"
 		logger "$PROGNAME backup projects cp started..."
        		cp -rl $dird $dirdate || flg "PROBLEM: $PROGNAME cp aborted"
-		logger "INFO: $PROGNAME Backup Projects is complite"
+		mail -s "Backup Projects is complite" am@hi-it.spb.ru <<< "Projets backup is complite corrent"
 	else   
         	logger "PROBLEM: $PROGNAME $mountpoint2 not mounting"
 		exit 1
