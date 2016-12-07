@@ -1,7 +1,8 @@
 #!/bin/bash
 #Backup PROJECTS on backup-srv2 in pa (files intremental)
 
-dirs="/mnt/Projects"
+#dirs="/mnt/Projects"
+dirs="rsync://ns.palavs.pa:/share/Projects"
 dird="/data/Projects/latest"
 dirdate="/data/Projects/projects-$(date +%Y-%m-%d_%H-%M-%S)"
 logfile="/data/Projects/rsync.log"
@@ -23,7 +24,7 @@ then
 	if [ -n "$testmount2" ]
 	then   
 		logger "$PROGNAME backup projects rsync started..."
-	        rsync --archive --delete --delete-excluded --exclude="*.lck" $dirs $dird &> $logfile || flg "PROBLEM: $PROGNAME backup projects aborted with rsync error"
+	        rsync --times --archive --iconv=CP866,UTF8 --delete --delete-excluded --exclude="*.lck" $dirs $dird &> $logfile || flg "PROBLEM: $PROGNAME backup projects aborted with rsync error"
 		logger "$PROGNAME backup projects cp started..."
        		cp -rl $dird $dirdate || flg "PROBLEM: $PROGNAME cp aborted"
 		logger "$PROGNAME Projets backup is complite corrent"
