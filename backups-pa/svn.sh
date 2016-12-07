@@ -5,6 +5,7 @@
 
 dirS="/mnt/post/svn"
 fileD="/home/michael/share/SVN/svn-$(date +%Y-%m-%d_%H-%M-%S).tar.gz"
+dirD="/home/michael/share/SVN"
 
 ### Проверка точек монтирования
 
@@ -33,6 +34,7 @@ then
         if [ -n "$testmount2" ]
         then
 		tar -czf $fileD -C $dirS || flg "PROBLEM: $PROGNAME backup SVN прерван по ошибке tar"
+		ls -1r $dirD/* | grep $dirD  | grep svn | sed -n '14,$ p' | xargs rm -f {}
                 logger "$PROGNAME SVN backup is complite corrent"
                 mail -s "Backup SVN is complite" pasys00@yandex.ru <<< "Projets backup is complite corrent $(date)"
         else
