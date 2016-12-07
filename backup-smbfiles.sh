@@ -28,6 +28,7 @@ then
        		cp -rl $dird $dirdate || flg "PROBLEM: $PROGNAME cp aborted"
 		logger "$PROGNAME Projets backup is complite corrent"
 		mail -s "Backup Projects is complite" pasys00@yandex.ru <<< "Projets backup is complite corrent $(date)"
+		find /data/Projects/* -maxdepth 0 -type d -iname "projects-*" | sort -r | sed -n '370,$ p' | xargs rm -rf {}
 	else   
         	logger "PROBLEM: $PROGNAME $mountpoint2 not mounting"
 		exit 1
