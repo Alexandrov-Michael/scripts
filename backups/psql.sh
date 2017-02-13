@@ -9,6 +9,8 @@ dirD="/mnt/backups"
 mountpoint1='//192.168.1.1/backups'
 testmount1=$(mount | grep $mountpoint1)
 
+mount -a
+
 
 if [ -n "$testmount1" ]
 then
